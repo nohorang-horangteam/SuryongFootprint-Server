@@ -7,10 +7,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "badge")
+@Table(name = "BADGE")
 public class Badge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int badge_id;
-    private String badge_name;
+
+    @Column(name="name", nullable=false)
+    private String name;
 }

@@ -1,29 +1,30 @@
 package com.nohorang.suryongfootprint.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "QUESTION")
-public class Question {
+@Table(name = "POST")
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int question_id;
-
-    @Column(name="content", nullable=false)
+    private int post_id;
+    private Blob img;
     private String content;
-
-    @Column(name="date", nullable=false)
+    private int status;
     private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonManagedReference
+    @JoinColumn(name="user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name="challenge_id")
+    private Challenge challenge;
 }

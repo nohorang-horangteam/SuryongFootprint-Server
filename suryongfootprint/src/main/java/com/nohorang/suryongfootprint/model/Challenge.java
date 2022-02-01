@@ -8,13 +8,21 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "challenge")
+@Table(name = "CHALLENGE")
 public class Challenge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int challenge_id;
-    private String challenge_title;
-    private String challenge_info;
-    private int post_count;
+
+    @Column(name="title", nullable=false)
+    private String title;
+
+    @Column(name="info", nullable=false)
+    private String info;
+
+    @Column(name="condition", nullable=false)
+    private int condition;
+
+    @Column(name="participants", nullable=false)
     private int participants;
 }

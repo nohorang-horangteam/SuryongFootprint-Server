@@ -8,5 +8,5 @@ public class UserCreationRequest {
     private String user_pw;
     private String user_name;
     private String user_nickname;
-    private int user_approval;
+    private int approval_count;
 }
