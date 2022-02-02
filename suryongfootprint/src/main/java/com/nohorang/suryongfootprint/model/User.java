@@ -26,9 +26,6 @@ public class User {
     @Column(name="user_nickname", nullable=false, length=10)
     private String user_nickname;
 
-    @Column(name="approval_count", nullable=false)
-    private int approval_count;
-
     //User의 Badge (1:N 관계 메핑)
     //User의 Post (1:N 관계 매핑)
     //User의 Count (1:N 관계 매핑)

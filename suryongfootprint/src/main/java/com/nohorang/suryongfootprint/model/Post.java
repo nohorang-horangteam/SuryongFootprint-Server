@@ -17,7 +17,7 @@ public class Post {
     private int post_id;
     private Blob img;
     private String content;
-    private int status;
+    private int state;
     private LocalDateTime date;
 
     @ManyToOne

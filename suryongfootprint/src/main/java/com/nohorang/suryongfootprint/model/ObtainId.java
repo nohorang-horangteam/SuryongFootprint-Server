@@ -2,7 +2,7 @@ package com.nohorang.suryongfootprint.model;
 
 import java.io.Serializable;
 
-public class CountId implements Serializable{
+public class ObtainId implements Serializable{
     private Integer user;
-    private Integer challenge;
+    private Integer badge;
 }

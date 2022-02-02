@@ -10,14 +10,15 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "COUNT")
-@IdClass(CountId.class)
 public class Count {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int count_id;
+
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
-    @Id
     @ManyToOne
     @JoinColumn(name="challenge_id", nullable=false)
     private Challenge challenge;

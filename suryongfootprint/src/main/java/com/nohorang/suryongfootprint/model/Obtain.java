@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "OBTAIN")
-@IdClass(CountId.class)
+@IdClass(ObtainId.class)
 public class Obtain {
     @Id
     @ManyToOne
@@ -17,8 +17,8 @@ public class Obtain {
 
     @Id
     @ManyToOne
-    @JoinColumn(name="challenge_id", nullable=false)
-    private Challenge challenge;
+    @JoinColumn(name="badge_id", nullable=false)
+    private Badge badge;
 
     @Column(name="count", nullable=false)
     private int count;
