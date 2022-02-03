@@ -50,4 +50,13 @@ public class UserController {
     public ResponseEntity<User> updateUserNickname(@PathVariable("user_id") String user_id, @RequestBody UserCreationRequest request){
         return ResponseEntity.ok(userService.updateUserNickName(user_id, request));
     }
+
+    //회원 탈퇴
+    @DeleteMapping("/user/{user_id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String user_id){
+        userService.deleteUser(user_id);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

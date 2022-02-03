@@ -80,4 +80,9 @@ public class UserService {
         c_user.setUserNickname(request.getUser_nickname());
         return userRepository.save(c_user);
     }
+
+    //회원 탈퇴
+    public void deleteUser(String user_id){
+        userRepository.deleteById(user_id);
+    }
 }
