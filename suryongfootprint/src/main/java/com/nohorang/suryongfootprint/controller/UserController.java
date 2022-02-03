@@ -27,15 +27,15 @@ public class UserController {
     }
 
     //아이디 찾기
-//    @GetMapping("/user/user_id")
-//    public ResponseEntity<String> findUserId(@RequestParam String user_name){
-//        return ResponseEntity.ok(userService.findUserId(user_name));
-//    }
+    @GetMapping("/user/user_id")
+    public ResponseEntity<String> findUserId(@RequestParam String user_name,@RequestParam String user_email){
+        return ResponseEntity.ok(userService.findUserId(user_name,user_email));
+    }
 //    //비밀번호 찾기
-//    @GetMapping("/user/user_pw")
-//    public ResponseEntity<String> findUserPW(@RequestParam String user_name, @RequestParam String user_id, @RequestParam String user_email){
-//        return ResponseEntity.ok(userService.findUserPW(user_name, user_id, user_email));
-//    }
+    @GetMapping("/user/user_pw")
+    public ResponseEntity<String> findUserPW(@RequestParam String user_name, @RequestParam String user_id, @RequestParam String user_email){
+        return ResponseEntity.ok(userService.findUserPW(user_name, user_id, user_email));
+    }
 
     //비밀번호 수정
     //UserCrearionRequest에서 user_pw값만 사용 -> 나머지는 빈 값이어도 됨.
