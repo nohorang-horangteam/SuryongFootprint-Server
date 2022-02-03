@@ -12,19 +12,19 @@ import javax.persistence.*;
 public class User {
     @Id
     @Column(name="user_id", nullable=false, length=20)
-    private String user_id;
+    private String userId;
 
     @Column(name="user_email", nullable=false, length=30)
-    private String user_email;
+    private String userEmail;
 
     @Column(name="user_pw", nullable=false, length=20)
-    private String user_pw;
+    private String userPw;
 
     @Column(name="user_name", nullable=false, length=10)
-    private String user_name;
+    private String userName;
 
     @Column(name="user_nickname", nullable=false, length=10)
-    private String user_nickname;
+    private String userNickname;
 
     //User의 Badge (1:N 관계 메핑)
     //User의 Post (1:N 관계 매핑)

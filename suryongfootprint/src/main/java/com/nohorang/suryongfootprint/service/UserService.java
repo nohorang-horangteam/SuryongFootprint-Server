@@ -5,6 +5,7 @@ import com.nohorang.suryongfootprint.model.request.UserCreationRequest;
 import com.nohorang.suryongfootprint.model.request.UserLoginRequest;
 import com.nohorang.suryongfootprint.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class UserService {
     public User getUserLogin(UserLoginRequest loginRequest){
         Optional<User> user = userRepository.findById(loginRequest.getUser_id());
         if(user.isPresent()){
-            if(user.get().getUser_pw().equals(loginRequest.getUser_pw())) {
+            if(user.get().getUserPw().equals(loginRequest.getUser_pw())) {
                 return user.get();
             }
         }
@@ -37,24 +38,26 @@ public class UserService {
     }
 
     //아이디 찾기
-//    public String findUserId(String user_name){
-//        List<User> user = userRepository.findByUser_name(user_name);
-//        if(user.get(0)!=null){
-//            return user.get(0).getUser_id();
-//        }
-//        //아이디 찾기 실패
-//        throw new EntityNotFoundException("Cant find any user given Info");
-//    }
-//
-//    //비밀번호 찾기
-//    public String findUserPW(String user_id, String user_name, String user_email){
-//        Optional<User> user = userRepository.findByUser_idAndUser_nameAndUser_email(user_id,user_name,user_email);
-//        if(user.isPresent()){
-//            return user.get().getUser_pw();
-//        }
-//        //아이디 찾기 실패
-//        throw new EntityNotFoundException("Cant find any user given Info");
-//    }
+    public String findUserId(String user_name,String user_email){
+        List<User> user = userRepository.findByUserNameAndUserEmail(user_name,user_email);
+        if(user.get(0)!=null){
+            return user.get(0).getUserId();
+        }
+        //아이디 찾기 실패
+        throw new EntityNotFoundException("Cant find any user given Info");
+    }
+
+    //비밀번호 찾기
+    public String findUserPW( String user_name, String user_id,String user_email){
+        Optional<User> user = userRepository.findByUserIdAndUserNameAndUserEmail(user_id,user_name,user_email);
+        String pw_str = "";
+        if(user.isPresent()){
+            pw_str = user.get().getUserPw();
+            return pw_str.substring(0,2)+"*".repeat(pw_str.length()-2);
+        }
+        //비밀번호 찾기 실패
+        throw new EntityNotFoundException("Cant find any user given Info");
+    }
 
     //비밀번호 변경
     public User updateUserPW(String user_id, UserCreationRequest request){
@@ -63,7 +66,7 @@ public class UserService {
             throw new EntityNotFoundException("User Not Found");
         }
         User c_user = user.get();
-        c_user.setUser_pw(request.getUser_pw());
+        c_user.setUserPw(request.getUser_pw());
         return userRepository.save(c_user);
     }
 
@@ -74,7 +77,7 @@ public class UserService {
             throw new EntityNotFoundException("User Not Found");
         }
         User c_user = user.get();
-        c_user.setUser_nickname(request.getUser_nickname());
+        c_user.setUserNickname(request.getUser_nickname());
         return userRepository.save(c_user);
     }
 }
