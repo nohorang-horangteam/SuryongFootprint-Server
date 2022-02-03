@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,28 +37,28 @@ public class UserService {
     }
 
     //아이디 찾기
-    public String findUserId(String user_name, String user_email){
-        Optional<User> user = userRepository.findByUser_nameAndUser_email(user_name,user_email);
-        if(user.isPresent()){
-            return user.get().getUser_id();
-        }
-        //아이디 찾기 실패
-        throw new EntityNotFoundException("Cant find any user given Info");
-    }
-
-    //비밀번호 찾기
-    public String findUserPW(String user_id, String user_name, String user_email){
-        Optional<User> user = userRepository.findByUser_idAndUser_nameAndUser_email(user_id,user_name,user_email);
-        if(user.isPresent()){
-            return user.get().getUser_pw();
-        }
-        //아이디 찾기 실패
-        throw new EntityNotFoundException("Cant find any user given Info");
-    }
+//    public String findUserId(String user_name){
+//        List<User> user = userRepository.findByUser_name(user_name);
+//        if(user.get(0)!=null){
+//            return user.get(0).getUser_id();
+//        }
+//        //아이디 찾기 실패
+//        throw new EntityNotFoundException("Cant find any user given Info");
+//    }
+//
+//    //비밀번호 찾기
+//    public String findUserPW(String user_id, String user_name, String user_email){
+//        Optional<User> user = userRepository.findByUser_idAndUser_nameAndUser_email(user_id,user_name,user_email);
+//        if(user.isPresent()){
+//            return user.get().getUser_pw();
+//        }
+//        //아이디 찾기 실패
+//        throw new EntityNotFoundException("Cant find any user given Info");
+//    }
 
     //비밀번호 변경
     public User updateUserPW(String user_id, UserCreationRequest request){
-        Optional<User> user = userRepository.findById(request.getUser_id());
+        Optional<User> user = userRepository.findById(user_id);
         if (!user.isPresent()) {
             throw new EntityNotFoundException("User Not Found");
         }
@@ -68,7 +69,7 @@ public class UserService {
 
     //닉네임 변경
     public User updateUserNickName(String user_id, UserCreationRequest request){
-        Optional<User> user = userRepository.findById(request.getUser_id());
+        Optional<User> user = userRepository.findById(user_id);
         if (!user.isPresent()) {
             throw new EntityNotFoundException("User Not Found");
         }
