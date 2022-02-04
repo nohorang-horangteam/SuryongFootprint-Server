@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Blob;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,8 +15,9 @@ import java.time.LocalDateTime;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int post_id;
-    private Blob img;
+    private int postId;
+    @Lob
+    private byte[] img;
     private String content;
     private int state;
     private LocalDateTime date;
@@ -27,4 +29,8 @@ public class Post {
     @ManyToOne
     @JoinColumn(name="challenge_id")
     private Challenge challenge;
+
+    @ManyToOne
+    @JoinColumn(name="count_id")
+    private Count count;
 }
