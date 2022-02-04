@@ -31,6 +31,11 @@ public class ChallengeService {
         return challengeRepository.findAll();
     }
 
+    //전체 참여횟수 읽어오기
+    public List<Count> readCounts() {
+        return countRepository.findAll();
+    }
+
     //전체 챌린지 읽어오기 -> 참여자 수 내림차순으로 가져올 수 있는 방법?
 
     //챌린지 id로 읽어오기
@@ -49,6 +54,7 @@ public class ChallengeService {
             throw new EntityNotFoundException("User not present in the database");
         }
         User user = userForId.get();
+
         Optional<Challenge> challengeForId = challengeRepository.findById(request.getChallengeId());
         if (!challengeForId.isPresent()) {
             throw new EntityNotFoundException("Challenge not present in the database");
@@ -84,6 +90,18 @@ public class ChallengeService {
         return postRepository.save(new_post);
     }
 
-    //모든 참여 조회
+    //사용자의 참여(Post) 조회
+    public List<Post> getUserPosts(String user_id){
+        Optional<User> userForId = userRepository.findById(user_id);
+        if (!userForId.isPresent()) {
+            throw new EntityNotFoundException("User not present in the database");
+        }
+        User user = userForId.get();
 
+        List<Post> user_posts= postRepository.findByUser(user);
+        if(user_posts.isEmpty()){
+            throw new EntityNotFoundException("Cant find any post under given ID");
+        }
+        return user_posts;
+    }
 }

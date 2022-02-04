@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     //회원가입
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody UserCreationRequest request){
         return ResponseEntity.ok(userService.createUser(request));
     }
