@@ -24,10 +24,13 @@ public class Count {
     private Challenge challenge;
 
     @Column(name="challenge_count", nullable=false)
-    private int challenge_count;
+    private int challengeCount;
 
     @Column(name="post_count",nullable=false)
-    private int post_count;
+    private int postCount;
+
+    @Column(name="approval_count", nullable=false)
+    private int approvalCount;
 }
 
 
