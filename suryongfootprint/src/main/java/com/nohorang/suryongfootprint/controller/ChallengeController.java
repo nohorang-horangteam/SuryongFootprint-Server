@@ -1,6 +1,7 @@
 package com.nohorang.suryongfootprint.controller;
 
 import com.nohorang.suryongfootprint.model.Challenge;
+import com.nohorang.suryongfootprint.model.Count;
 import com.nohorang.suryongfootprint.model.Post;
 import com.nohorang.suryongfootprint.model.User;
 import com.nohorang.suryongfootprint.model.request.PostCreationRequest;
@@ -8,6 +9,7 @@ import com.nohorang.suryongfootprint.model.request.UserCreationRequest;
 import com.nohorang.suryongfootprint.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +22,7 @@ public class ChallengeController {
     private final ChallengeService challengeService;
 
     //전체 챌린지 가져오기
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Challenge>> readChallenges () {
         return ResponseEntity.ok(challengeService.readChallenges());
     }
@@ -35,6 +37,18 @@ public class ChallengeController {
     @PostMapping("/post")
     public ResponseEntity<Post> createPost(@RequestBody PostCreationRequest postCreationRequest){
         return ResponseEntity.ok(challengeService.createPost(postCreationRequest));
+    }
+
+    //user 포스트 가져오기
+    @GetMapping("/post/{user_id}")
+    public ResponseEntity<List<Post>> getUserPosts (@PathVariable String user_id) {
+        return ResponseEntity.ok(challengeService.getUserPosts(user_id));
+    }
+
+    // 전체 COUNT 가져오기
+    @GetMapping("/count")
+    public ResponseEntity<List<Count>> readCounts () {
+        return ResponseEntity.ok(challengeService.readCounts());
     }
 
 }
