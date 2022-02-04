@@ -9,6 +9,7 @@ import lombok.val;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -85,4 +86,32 @@ public class UserService {
     public void deleteUser(String user_id){
         userRepository.deleteById(user_id);
     }
+
+    //아이디 중복 조회
+    public String existUserId(String user_id){
+        Optional<User> user = userRepository.findById(user_id);
+        if (user.isPresent()) {
+            return user.get().getUserId();
+        }
+        throw new EntityNotFoundException("Cant find any user given Info");
+    }
+
+    //이메일 중복 조회
+    public String existUserEmail(String user_email){
+        Optional<User> user = userRepository.findByUserEmail(user_email);
+        if (user.isPresent()) {
+            return user.get().getUserEmail();
+        }
+        throw new EntityNotFoundException("Cant find any user given Info");
+    }
+
+    //닉네임 중복 조회
+    public String existUserNickName(String user_nickname){
+        Optional<User> user = userRepository.findByUserNickname(user_nickname);
+        if (user.isPresent()) {
+            return user.get().getUserNickname();
+        }
+        throw new EntityNotFoundException("Cant find any user given Info");
+    }
+
 }

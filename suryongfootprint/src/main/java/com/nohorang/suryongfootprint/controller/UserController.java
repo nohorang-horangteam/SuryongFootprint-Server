@@ -32,10 +32,29 @@ public class UserController {
     public ResponseEntity<String> findUserId(@RequestParam String user_name,@RequestParam String user_email){
         return ResponseEntity.ok(userService.findUserId(user_name,user_email));
     }
+
 //    //비밀번호 찾기
     @GetMapping("/user_pw")
     public ResponseEntity<String> findUserPW(@RequestParam String user_name, @RequestParam String user_id, @RequestParam String user_email){
         return ResponseEntity.ok(userService.findUserPW(user_name, user_id, user_email));
+    }
+
+    //아이디 중복확인
+    @GetMapping("/available/id")
+    public ResponseEntity<String> existUserId(@RequestParam String user_id){
+        return ResponseEntity.ok(userService.existUserId(user_id));
+    }
+
+    //이메일 중복확인
+    @GetMapping("/available/email")
+    public ResponseEntity<String> existUserEmail(@RequestParam String user_email){
+        return ResponseEntity.ok(userService.existUserEmail(user_email));
+    }
+
+    //닉네임 중복확인
+    @GetMapping("/available/nickname")
+    public ResponseEntity<String> existUserNickName(@RequestParam String user_nickname){
+        return ResponseEntity.ok(userService.existUserNickName(user_nickname));
     }
 
     //비밀번호 수정

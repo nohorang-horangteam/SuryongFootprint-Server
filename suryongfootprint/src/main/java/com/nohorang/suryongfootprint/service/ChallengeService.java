@@ -5,6 +5,8 @@ import com.nohorang.suryongfootprint.model.Count;
 import com.nohorang.suryongfootprint.model.Post;
 import com.nohorang.suryongfootprint.model.User;
 import com.nohorang.suryongfootprint.model.request.PostCreationRequest;
+import com.nohorang.suryongfootprint.model.request.PostUpdateRequest;
+import com.nohorang.suryongfootprint.model.request.UserCreationRequest;
 import com.nohorang.suryongfootprint.repository.ChallengeRepository;
 import com.nohorang.suryongfootprint.repository.CountRepository;
 import com.nohorang.suryongfootprint.repository.PostRepository;
@@ -90,7 +92,7 @@ public class ChallengeService {
         return postRepository.save(new_post);
     }
 
-    //사용자의 참여(Post) 조회
+    //사용자별 참여(Post) 조회
     public List<Post> getUserPosts(String user_id){
         Optional<User> userForId = userRepository.findById(user_id);
         if (!userForId.isPresent()) {
@@ -104,4 +106,87 @@ public class ChallengeService {
         }
         return user_posts;
     }
+
+    //챌린지별 참여(Post) 조회
+    public List<Post> getChallengePosts(int challenge_id){
+        Optional<Challenge> challengeForId = challengeRepository.findById(challenge_id);
+        if (!challengeForId.isPresent()) {
+            throw new EntityNotFoundException("User not present in the database");
+        }
+        Challenge challenge = challengeForId.get();
+
+        List<Post> challenge_posts= postRepository.findByChallenge(challenge);
+        if(challenge_posts.isEmpty()){
+            throw new EntityNotFoundException("Cant find any post under given ID");
+        }
+        return challenge_posts;
+    }
+
+    //사용자별 챌린지별 참여(Post) 조회
+    public List<Post> getUserChallengePosts(String user_id, int challenge_id){
+        //사용자 정보 가져오기
+        Optional<User> userForId = userRepository.findById(user_id);
+        if (!userForId.isPresent()) {
+            throw new EntityNotFoundException("User not present in the database");
+        }
+        User user = userForId.get();
+
+        //챌린지 정보 가져오기
+        Optional<Challenge> challengeForId = challengeRepository.findById(challenge_id);
+        if (!challengeForId.isPresent()) {
+            throw new EntityNotFoundException("User not present in the database");
+        }
+        Challenge challenge = challengeForId.get();
+
+        //post 쿼리
+        List<Post> user_challenge_posts= postRepository.findByUserAndChallenge(user,challenge);
+        if(user_challenge_posts.isEmpty()){
+            throw new EntityNotFoundException("Cant find any post under given ID");
+        }
+        return user_challenge_posts;
+    }
+
+    //사용자별 챌린지별 상태별 참여(Post) 조회
+    public List<Post> getUserChallengeStatePosts(String user_id, int challenge_id, int state){
+        //사용자 정보 가져오기
+        Optional<User> userForId = userRepository.findById(user_id);
+        if (!userForId.isPresent()) {
+            throw new EntityNotFoundException("User not present in the database");
+        }
+        User user = userForId.get();
+
+        //챌린지 정보 가져오기
+        Optional<Challenge> challengeForId = challengeRepository.findById(challenge_id);
+        if (!challengeForId.isPresent()) {
+            throw new EntityNotFoundException("User not present in the database");
+        }
+        Challenge challenge = challengeForId.get();
+
+        //post 쿼리
+        List<Post> user_challenge_s_posts= postRepository.findByUserAndChallengeAndState(user,challenge,state);
+        if(user_challenge_s_posts.isEmpty()){
+            throw new EntityNotFoundException("Cant find any post under given ID");
+        }
+        return user_challenge_s_posts;
+    }
+
+    //참여(Post) 수정
+    public Post updatePostContent(int post_id, PostUpdateRequest request){
+        Optional<Post> post = postRepository.findById(post_id);
+        if (!post.isPresent()) {
+            throw new EntityNotFoundException("User Not Found");
+        }
+        Post c_post = post.get();
+
+        c_post.setContent(request.getContent());
+        return postRepository.save(c_post);
+    }
+
+
+    //참여(Post) 삭제
+    public void deletePost(int post_id){
+
+        postRepository.deleteById(post_id);
+    }
+
 }

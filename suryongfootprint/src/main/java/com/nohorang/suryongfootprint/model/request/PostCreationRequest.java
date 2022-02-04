@@ -11,5 +11,4 @@ public class PostCreationRequest {
     private int state;
     private String userId;
     private int challengeId;
-
 }
