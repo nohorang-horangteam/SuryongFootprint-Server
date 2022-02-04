@@ -27,9 +27,9 @@ public class UserService {
 
     //로그인
     public User getUserLogin(UserLoginRequest loginRequest){
-        Optional<User> user = userRepository.findById(loginRequest.getUser_id());
+        Optional<User> user = userRepository.findById(loginRequest.getUserId());
         if(user.isPresent()){
-            if(user.get().getUserPw().equals(loginRequest.getUser_pw())) {
+            if(user.get().getUserPw().equals(loginRequest.getUserPw())) {
                 return user.get();
             }
         }
@@ -66,7 +66,7 @@ public class UserService {
             throw new EntityNotFoundException("User Not Found");
         }
         User c_user = user.get();
-        c_user.setUserPw(request.getUser_pw());
+        c_user.setUserPw(request.getUserPw());
         return userRepository.save(c_user);
     }
 
@@ -77,7 +77,7 @@ public class UserService {
             throw new EntityNotFoundException("User Not Found");
         }
         User c_user = user.get();
-        c_user.setUserNickname(request.getUser_nickname());
+        c_user.setUserNickname(request.getUserNickname());
         return userRepository.save(c_user);
     }
 
