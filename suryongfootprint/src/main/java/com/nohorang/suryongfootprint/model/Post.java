@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.net.URI;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int postId;
     @Lob
-    private byte[] img;
+    private URI img;
     private String content;
     private int state;
     private LocalDateTime date;
