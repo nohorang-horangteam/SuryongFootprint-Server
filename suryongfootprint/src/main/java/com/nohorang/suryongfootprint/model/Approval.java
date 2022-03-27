@@ -19,9 +19,5 @@ public class Approval {
     @ManyToOne
     @JoinColumn(name="challenge_id", nullable=false)
     private Challenge challenge;
-
-    @Column(name="count", nullable=false)
-    private int count;
-
 }
 
