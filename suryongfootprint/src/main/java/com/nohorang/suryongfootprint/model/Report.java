@@ -17,10 +17,8 @@ public class Report {
 
     @Id
     @ManyToOne
-    @JoinColumn(name="challenge_id", nullable=false)
-    private Challenge challenge;
+    @JoinColumn(name="count_id", nullable=false)
+    private Count count;
 
-    @Column(name="count", nullable=false)
-    private int count;
 }
 
