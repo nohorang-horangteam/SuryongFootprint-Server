@@ -10,6 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CountRepository extends JpaRepository<Count, Integer> {
-    Optional<Count> findByUserAndChallenge(User user, Challenge challenge);
+    List<Count> findByUserAndChallenge(User user, Challenge challenge);
     List<Count> findByUser(User user);
 }

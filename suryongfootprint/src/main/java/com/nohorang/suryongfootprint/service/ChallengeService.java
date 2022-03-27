@@ -61,20 +61,29 @@ public class ChallengeService {
         }
         Challenge challenge = challengeForId.get();
 
-        //Count 참여 횟수 테이블
-        Optional<Count> countForId = countRepository.findByUserAndChallenge(user,challenge);
+        //Count 참여 횟수 테이블 - > state가 0인 count가 존재하는지 찾기
+        List<Count> countForId = countRepository.findByUserAndChallenge(user,challenge);
         Count new_count = new Count();
-        if (!countForId.isPresent()) {
+        boolean flag_count = false;
+        if (countForId.isEmpty()) {//count가 있을 때
+            for (int i=0; i< countForId.size();i++) {
+                if (countForId.get(i).getState() == 0) {//state가 0인 count가 있을 때
+                    BeanUtils.copyProperties(countForId.get(i), new_count);
+                    int p_cnt = new_count.getPostCount();
+                    new_count.setPostCount(p_cnt);
+                    if (p_cnt == challenge.getCondition()) new_count.setState(1);//챌린지 참여개수가 조건을 충족하면 count의 state는 0 -> 1
+                    countRepository.save(new_count);
+                    flag_count=true;
+                }
+            }
+        }
+        //state가 0인 count가 없을 때
+        if(flag_count==false){
             new_count.setUser(user);
             new_count.setChallenge(challenge);
-            new_count.setChallengeCount(1);
             new_count.setPostCount(1);
             new_count.setApprovalCount(2);
-            countRepository.save(new_count);
-        }else{
-            BeanUtils.copyProperties(countForId.get(),new_count);
-            int p_cnt=new_count.getPostCount();
-            new_count.setPostCount(p_cnt);
+            new_count.setState(0);
             countRepository.save(new_count);
         }
 
@@ -85,7 +94,6 @@ public class ChallengeService {
         new_post.setContent(request.getContent());
         new_post.setDate(LocalDateTime.now());
         new_post.setImg(request.getImg());
-        new_post.setState(request.getState());
 
         return postRepository.save(new_post);
     }

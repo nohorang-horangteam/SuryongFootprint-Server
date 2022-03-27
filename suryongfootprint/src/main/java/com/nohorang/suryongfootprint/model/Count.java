@@ -23,14 +23,14 @@ public class Count {
     @JoinColumn(name="challenge_id", nullable=false)
     private Challenge challenge;
 
-    @Column(name="challenge_count", nullable=false)
-    private int challengeCount;
-
     @Column(name="post_count",nullable=false)
     private int postCount;
 
     @Column(name="approval_count", nullable=false)
     private int approvalCount;
+
+    @Column(name="state", nullable=false)
+    private int state;
 }
 
 

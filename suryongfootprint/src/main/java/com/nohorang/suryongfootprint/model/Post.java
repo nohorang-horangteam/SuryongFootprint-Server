@@ -20,7 +20,6 @@ public class Post {
     @Lob
     private URI img;
     private String content;
-    private int state;
     private LocalDateTime date;
 
     @ManyToOne
