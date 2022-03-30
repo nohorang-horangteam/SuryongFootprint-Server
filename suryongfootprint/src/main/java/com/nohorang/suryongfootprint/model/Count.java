@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Count {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int count_id;
+    private int countId;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)

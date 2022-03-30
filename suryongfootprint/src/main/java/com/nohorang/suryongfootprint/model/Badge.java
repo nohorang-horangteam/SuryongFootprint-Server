@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Badge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int badge_id;
+    private int badgeId;
 
     @Column(name="name", nullable=false)
     private String name;

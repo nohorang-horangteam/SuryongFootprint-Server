@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Challenge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int challenge_id;
+    private int challengeId;
 
     @Column(name="title", nullable=false)
     private String title;
