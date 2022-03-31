@@ -1,4 +1,5 @@
 package com.nohorang.suryongfootprint.model;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,11 +14,13 @@ public class Report {
     @Id
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
+    @JsonManagedReference
     private User user;
 
     @Id
     @ManyToOne
     @JoinColumn(name="count_id", nullable=false)
+    @JsonManagedReference
     private Count count;
 
 }

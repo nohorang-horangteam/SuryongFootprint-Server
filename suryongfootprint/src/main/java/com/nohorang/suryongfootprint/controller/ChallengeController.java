@@ -6,6 +6,7 @@ import com.nohorang.suryongfootprint.model.Post;
 import com.nohorang.suryongfootprint.model.User;
 import com.nohorang.suryongfootprint.model.request.PostCreationRequest;
 import com.nohorang.suryongfootprint.model.request.UserCreationRequest;
+import com.nohorang.suryongfootprint.model.response.PostCreationResponse;
 import com.nohorang.suryongfootprint.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class ChallengeController {
 
     //챌린지 참여 - 포스트 올림
     @PostMapping("/post")
-    public ResponseEntity<Post> createPost(@RequestBody PostCreationRequest postCreationRequest){
+    public ResponseEntity<PostCreationResponse> createPost(@RequestBody PostCreationRequest postCreationRequest){
         return ResponseEntity.ok(challengeService.createPost(postCreationRequest));
     }
 

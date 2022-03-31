@@ -7,9 +7,8 @@ import java.net.URI;
 
 @Data
 public class PostCreationRequest {
-    private URI img;
+    private String img;
     private String content;
-    private int state;
     private String userId;
     private int challengeId;
 
